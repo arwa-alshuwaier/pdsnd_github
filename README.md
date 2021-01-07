@@ -34,4 +34,4 @@ washington.csv
 pikeshare.py
 
 ### Credits
-this link to solving hard mathematical problems via programming languages & know how to play with data types press here https://projecteuler.net
+this link to solving hard mathematical problems via programming languages & know how to play with data types [press here] (https://projecteuler.net)
