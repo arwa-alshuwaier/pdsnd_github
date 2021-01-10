@@ -19,40 +19,40 @@ def get_filters():
     """
     print('\nHello! Let\'s explore some US bikeshare data!')
     # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
-    
-            
+
+
     while True:
-        
+
         city = input('would you like to see information for chicago,new york or washington? \n').lower()
         if CITY_DATA.get(city) is not None:
-            break  
+            break
         else:
             print ('please choose one city name with correct spelling')
-               
-    
+
+
 
     # TO DO: get user input for month (all, january, february, ... , june)
     while True:
-        
+
             month = str(input('which month? january, February, March, April, May , June or all? \n')).lower()
             if month in months:
                 break
             else:
                 print ('please inter the name of the month with correct spelling')
-        
-    
+
+
 
     # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
     while True:
-        
+
             day = str(input('which day? Saturday, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday or All? \n')).title()
-           
+
             if day in ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday','Friday' ,'All']:
                 break
             else:
                 print ('please inter the name of the day with correct spelling')
-        
-    
+
+
 
     print('-'*40)
     return city, month, day
@@ -73,14 +73,14 @@ def load_data(city, month, day):
     df['Start Time'] = pd.to_datetime(df['Start Time'])
     df['month']= df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-    
+
     if month != 'all':
         month = months.index(month)
         df=df[df['month'] == month]
-        
+
     if day != 'All':
         df=df[df['day_of_week']==day]
-        
+
     return df
 
 
@@ -91,19 +91,16 @@ def time_stats(df):
     start_time = time.time()
 
     # TO DO: display the most common month
-    common_month=df['month'].mode()[0]
-    common_month=months[common_month].title()
+    common_month=months[df['month'].mode()[0]].title()
     print('Most common month is: ', common_month)
 
     # TO DO: display the most common day of week
-    common_day=df['day_of_week'].mode()[0]
-    print('Most common day of week is: ', common_day)
+    print('Most common day of week is: ', df['day_of_week'].mode()[0])
 
     # TO DO: display the most common start hour
     df['Start Time']=pd.to_datetime(df['Start Time'])
     df['hour']=df['Start Time'].dt.hour
-    common_hour=df['hour'].mode()[0]
-    print('Most common start hour is: ', common_hour)
+    print('Most common start hour is: ', df['hour'].mode()[0])
 
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -155,13 +152,13 @@ def user_stats(df):
 
     # TO DO: Display counts of user types
     print('The counts of user types: \n', df['User Type'].value_counts(),'\n')
-    
+
     # TO DO: Display counts of gender
     if 'Gender' in df.columns :
         print('The counts of gender: \n', df['Gender'].value_counts(),'\n')
     else:
         print('There are no Gender and year of birth stats in washington')
-        
+
     # TO DO: Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df.columns :
         print('The earliest year of birth is: \"', int(df['Birth Year'].min()),'\" ')
@@ -171,13 +168,13 @@ def user_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def load_info(df):
     view_data = input('\nWould you like to view 5 rows of individual trip data? Enter yes or no\n').lower()
-   
+
     if view_data == 'yes':
         start_loc = 0
-        
+
         while (start_loc <= len(df.index)):
             print(len(df.index))
             print(df.iloc[start_loc:start_loc+5])
@@ -203,8 +200,8 @@ def main():
             exit1=input ('\nAre you sure you want to exit? Enter yes or no\n')
             if exit1.lower() == 'yes':
                 break
-            
-        
+
+
 
 
 if __name__ == "__main__":
